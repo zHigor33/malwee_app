@@ -1,0 +1,94 @@
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+App/build/
+*App/.pbxuser
+!default.pbxuser
+*App/.mode1v3
+App/!default.mode1v3
+App/*.mode2v3
+App/!default.mode2v3
+App/*.perspectivev3
+App/!default.perspectivev3
+App/xcuserdata
+App/*.xccheckout
+App/*.moved-aside
+App/DerivedData
+App/*.hmap
+App/*.ipa
+App/*.xcuserstate
+App/project.xcworkspace
+
+# Android/IntelliJ
+#
+App/build/
+App/.idea
+App/.gradle
+App/local.properties
+App/*.iml
+
+# node.js
+#
+App/node_modules/
+App/npm-debug.log
+App/yarn-error.log
+
+# BUCK
+App/buck-out/
+App/.buckd/
+App/*.keystore
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+
+App/*/fastlane/report.xml
+App/*/fastlane/Preview.html
+App/*/fastlane/screenshots
+
+# Bundle artifacts
+App/*.jsbundle
+
+# CocoaPods
+App/ios/Pods/
+
+# Expo
+App/.expo/*
+App/web-build/
+
+##########################
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Web/node_modules
+Web/.pnp
+Web/.pnp.js
+
+# testing
+Web/coverage
+
+# production
+Web/build
+
+# misc
+Web/.DS_Store
+Web/.env.local
+Web/.env.development.local
+Web/.env.test.local
+Web/.env.production.local
+
+Web/npm-debug.log*
+Web/yarn-debug.log*
+Web/yarn-error.log*
+
+##########################
+
+# Server
+Server/node_modules

@@ -1,0 +1,373 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.body_container {
+	display: flex;
+	flex-wrap: wrap ;
+}
+
+.nav {
+	background-color: #549245;
+	height: 64px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav_btn {
+	background-color: #62a467;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bolder;
+	font-size: 20px;
+	color: #fff;
+	text-shadow: 0px 2px black;
+	margin-right: 24px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 8px;
+}
+
+.nav_btn:hover {
+	background-color: #666;
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+.text_nav {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bolder;
+	font-size: 20px;
+	color: #fff;
+	text-shadow: 0px 2px black;
+	margin-left: 24px;
+	margin-top: 20px
+}
+
+.menu {
+	background-color: #333;
+	height: calc(100vh - 64px - 16px);
+	width: 284px;
+	padding:8px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.menu_btn {
+	border-radius: 8px;
+	background-color: #333;
+	color: #fff;
+	margin-top: 8px;
+	padding: 8px;
+	width: 100%;
+	height: 52px;
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+.menu_btn:hover {
+	background-color: #666;
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+.menu_img {
+	width: 80%;
+	margin-right: 10%;
+	align-self: flex-end;
+}
+
+.text_btn {
+	margin-left: 5%;
+}
+
+.body_page {
+	margin: 16px;
+	height: calc(100vh - 64px - 32px);
+	width: calc(100% - 334px);
+	overflow-y: scroll;
+	box-shadow: 0px 2px 5px black;
+}
+
+.banner {
+	width: calc(100% - 4px);
+	height: auto;
+	border: 2px solid #333;
+	border-radius: 0px 0px 28px 28px;
+	display: flex;
+}
+
+.banner_info {
+	margin-top: 12px;
+	margin-left: 18px;
+	width: 100%;
+	height: auto;
+}
+
+.banner_info h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 38px;
+	margin-bottom: 24px;
+	margin-top: 12px;
+}
+
+.banner_info p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+}
+
+.banner_img {
+	width: 600px;
+	height: 400px;
+}
+
+.banner_img img {
+	
+	margin-left: 100px;
+	width: 220px;
+	margin-top: 15px;
+}
+
+.container_action_buttons {
+	width: 100%;
+	height: 64px;
+	margin-top: 18px;
+    margin-bottom: 18px;
+	background-color: #ccc;
+	display: flex;
+	justify-content: end;
+}
+
+.action_buttons {
+	background-color: #666;
+	height: 50px;
+	width: auto;
+	margin-top: 7px;
+	margin-right: 7px;
+	font-size: 18px;
+	color: #fff;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-radius: 8px;
+}
+
+.action_buttons:hover {
+	background-color: #1E90FF;
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+.event_container {
+	width: 100%;
+	height: auto;
+}
+
+.event_list_column {
+    background-color: RGB(245, 245, 245);
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+
+.event_list {
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+
+.event_list:nth-child(odd) {
+    background-color: RGB(245, 245, 245);
+}
+
+.event_list:nth-child(even) {
+    background-color: #fff;
+}
+
+.event_id {
+    width: 32px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin-top: 16px;
+    margin-left: 16px;
+    font-weight: bolder;
+}
+
+.event_name {
+    width: 100%;
+    margin-top: 16px;
+    margin-left: 44px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.event_date {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 16px;
+    width: 300px;
+}
+
+.event_time {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 16px;
+    width: 300px;
+}
+
+.event_list:hover {
+    color: #1E90FF;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+/* Primeira versão */
+
+/*
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ddd;
+}
+
+.header {
+    margin-top: 0;
+    height: 7vh;
+    width: 100%;
+    background-color: #549245;
+}
+
+.titleHeader {
+    float: left;
+    color: #fff;
+    margin-top: 16px;
+    margin-left: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.userHeader {
+    float: right;
+    color: #fff;
+    margin-top: 20px;
+    margin-right: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.leftMenu {
+    height: 91.5vh;
+    width: 15%;
+    background-color: #666;
+    float: left;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 6px;
+}
+
+.optionButtons {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    background-color: #333;
+    transition-duration: 0.3s;
+}
+
+.optionButtons:hover {
+    background-color: #68b355;
+}
+
+.optionButtonText {
+    color: white;
+    font-size: 16px;
+    float: left;
+    margin-left: 16px;
+}
+
+.bodyPage {
+    width: 78%;
+    padding: 24px;
+    float: right;
+}
+
+.bodyEvents {
+    width: 50%;
+    height: 500px;
+    margin-left: 25%;
+    margin-top: 32px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+.titleBodyPage {
+    margin-top: 24px;
+    margin-bottom: 56px;
+    font-size: 32px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titleError {
+    margin-bottom: 45px;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titleFieldInformation {
+    margin-left: 15%;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fieldInformation {
+    padding: 4px;
+    border-bottom: 1px solid #666;
+    outline: none;
+    font-size: 16px;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 24px;
+    margin-top: 6px;
+}
+
+.confirmButton {
+    float: right;
+    padding: 12px;
+    border-radius: 6px;
+    margin-right: 15%;
+    border: 1px solid #666;
+    background-color: #549245;
+    color: white;
+    font-size: 18px;
+    margin-top: 70px;
+    transition-duration: 0.3s;
+}
+
+.confirmButton:hover {
+    background-color: #65ad53;
+}
+*/
