@@ -5,7 +5,7 @@ import logo from "../assets/images/logo.png"
 import moldura from "../assets/images/moldura.png"
 import "../assets/fontawesome/css/all.css"
 
-export default function Home() {
+export default function Home(props) {
     const [title, setTitle] = useState();
     const [desc, setDesc] = useState();
     const [img, setImage] = useState();
@@ -100,19 +100,6 @@ export default function Home() {
         ]);
     }, []);
 
-    function AddEventPopup() {
-        return (
-            <div className="body_popup">
-                <div className="popup">
-                    <div className="nav_popup">
-                        <p>Adicionar Evento</p>
-                        <button onClick={() => {set_show_register_popup(false)}} className="nav_btn_popup"><i class="far fa-times-circle"></i></button>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
     function registerEvent() {
         if(title == "" || title == null || desc == "" || desc == null || img == "" || img == null) {
             if(title == "" || title == null) setErr("Preencha o Título!");
@@ -152,7 +139,7 @@ export default function Home() {
     return (
         <div className="body_container">
             {
-                show_register_popup && <AddEventPopup />
+                show_register_popup && <AddEventPopup popupIsOpen={isOpen => set_show_register_popup(isOpen)} />
             }
 
             <div className={show_register_popup ? "blur" : undefined} style={{display: "flex", flexWrap: "wrap"}}>
@@ -243,4 +230,66 @@ export default function Home() {
             </div>
         </div>
     );
+}
+
+function AddEventPopup(props) {
+    const [location, set_location] = useState();
+
+    useEffect(() => {
+        set_location([
+            {
+                ID: "1",
+                local_name: "Lago",
+                lat: "1000",
+                log: "-1000"
+            },
+            {
+                ID: "1",
+                local_name: "Pista",
+                lat: "1000",
+                log: "-1000"
+            },
+            {
+                ID: "1",
+                local_name: "Museu",
+                lat: "1000",
+                log: "-1000"
+            },
+            {
+                ID: "1",
+                local_name: "Labirinto",
+                lat: "1000",
+                log: "-1000"
+            },
+        ]);
+    },[]);
+
+    return (
+        <div className="body_popup">
+            <div className="popup">
+                <div className="nav_popup">
+                    <p>Adicionar Evento</p>
+                    <button onClick={() => props.popupIsOpen(false)} className="nav_btn_popup"><i class="far fa-times-circle"></i></button>
+                </div>
+
+                <div className="field">
+                    <input className="field_name" placeholder="Nome do Evento" maxLength={50} />
+                    <input className="field_image" placeholder="Link da imagem" maxLength={1000} />
+                    <input className="field_date" type="date" />
+                    <input className="field_time" type="time" />
+                    <select className="field_location" placeholder="Local">
+                        {
+                            location && location.map(n => <option>{n.local_name}</option>)
+                        }  
+                    </select>
+                    <textarea className="field_description" maxLength={500} placeholder="Descrição do Evento" />
+                </div>
+
+                <div className="control_btn_popup">
+                    <button className="popup_action_button_cancel" onClick={() => props.popupIsOpen(false)}>Cancelar</button>
+                    <button className="popup_action_button">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    )
 }
