@@ -403,3 +403,18 @@
 	width: 100%;
 	height: 55px;
 }
+
+.err_message {
+	position: absolute;
+	width: 300px;
+	height: 32px;
+	background-color: #fcb1b1;
+	color: #cf0000;
+	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	padding-top: 16px;
+	margin-left: calc(50% - 150px);
+	border-radius: 8px;
+	margin-top: 12px;
+}

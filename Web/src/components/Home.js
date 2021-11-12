@@ -1,139 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import {post} from "./http/maHttp";
+import {post, get} from "./http/maHttp";
 import "../assets/css/Events.css";
 import logo from "../assets/images/logo.png"
 import moldura from "../assets/images/moldura.png"
 import "../assets/fontawesome/css/all.css"
 
 export default function Home(props) {
-    const [title, setTitle] = useState();
-    const [desc, setDesc] = useState();
-    const [img, setImage] = useState();
-    const [err, setErr] = useState();
-
     const [event_list, set_events_list] = useState();
     const [show_register_popup, set_show_register_popup] = useState(false);
+    const [show_select_event, set_show_select_event] = useState(false);
+    const [select_event, set_select_event] = useState();
 
     useEffect(() => {
-        set_events_list([
-            {
-                ID: "0",
-                event_name: "Encontro de Carros",
-                description: "Encontro de carros antigos",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "1",
-                event_name: "Corrida de Bike",
-                description: "Encontro de Bikes",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            },
-            {
-                ID: "2",
-                event_name: "Luau no lago",
-                description: "Encontro de Pessoas",
-                event_date: "12/12/2021",
-                event_time: "15:15",
-                event_image: "https://cdn.ocp.news/2019/03/exposicao-carros-antigos.jpg",
-                waypoint_ID: "0"
-            }
-        ]);
+        get('/api/v1/events/list_event').then((response) => {
+            console.log("AQUI",response);
+
+            set_events_list(response.data.rows);
+        }).catch((err) => {
+            console.log(err);
+        });
     }, []);
 
-    function registerEvent() {
-        if(title == "" || title == null || desc == "" || desc == null || img == "" || img == null) {
-            if(title == "" || title == null) setErr("Preencha o Título!");
+    function showEvent(n) {
+        console.log(n);
 
-            else if(desc == "" || desc == null) setErr("Preencha a Descrição do Evento!");
-
-            else if(img == "" || img == null) setErr("Escolha uma imagem!");
-            
-            console.log("Entrou no erro", err);
-
-            return;
-        }
-
-        else {
-            setErr("");
-
-            const obj= {
-                title,
-                desc,
-                image: img
-            }
-
-            setTitle("");
-            setDesc("");
-            setImage("");
-    
-            post("/api/v1/events/register_event", obj).then((response) => {
-                console.log("Evento Registrado", response);
-            }).catch((err) => {
-                alert(err);
-            });
-
-            alert("Evento Registrado");
-        }
+        set_select_event(n);
+        set_show_select_event(true);
     }
 
     return (
@@ -142,7 +34,11 @@ export default function Home(props) {
                 show_register_popup && <AddEventPopup popupIsOpen={isOpen => set_show_register_popup(isOpen)} />
             }
 
-            <div className={show_register_popup ? "blur" : undefined} style={{display: "flex", flexWrap: "wrap"}}>
+            {
+                show_select_event && <EventPopup popupIsOpen={isOpen => set_show_select_event(isOpen)} event={select_event} />
+            }
+
+            <div className={show_register_popup || show_select_event ? "blur" : undefined} style={{display: "flex", flexWrap: "wrap"}}>
                 <div class="nav">
                     <text className="text_nav"><i className="fas fa-user"></i> Higor</text>
                     <text className="text_nav">PARQUE MALWEE</text>
@@ -206,23 +102,23 @@ export default function Home(props) {
                         {
                             
                             event_list && event_list.map(n =>
-                                <div item key={n.ID} className="event_list">
+                                <div item key={n.ID} className="event_list" onClick={() => {showEvent(n)}}>
                                     <div className="event_id">
                                         <p>{n.ID}</p>
                                     </div>
-
+                        
                                     <div className="event_name">
                                         <p>{n.event_name}</p>
                                     </div>
-
+                        
                                     <div className="event_date">
                                         <p>{n.event_date}</p>
                                     </div>
-
+                        
                                     <div className="event_time">
                                         <p>{n.event_time} h</p>
                                     </div>
-                                </div>                            
+                                </div>                       
                             )
                         }
                     </div>
@@ -234,38 +130,79 @@ export default function Home(props) {
 
 function AddEventPopup(props) {
     const [location, set_location] = useState();
+    const [event_name, set_event_name] = useState();
+    const [event_image, set_event_image] = useState();
+    const [event_date, set_event_date] = useState();
+    const [event_time, set_event_time] = useState();
+    const [event_location, set_event_location] = useState();
+    const [event_description, set_event_description] = useState();
+    const [event_err, set_event_err] = useState(false);
 
     useEffect(() => {
-        set_location([
-            {
-                ID: "1",
-                local_name: "Lago",
-                lat: "1000",
-                log: "-1000"
-            },
-            {
-                ID: "1",
-                local_name: "Pista",
-                lat: "1000",
-                log: "-1000"
-            },
-            {
-                ID: "1",
-                local_name: "Museu",
-                lat: "1000",
-                log: "-1000"
-            },
-            {
-                ID: "1",
-                local_name: "Labirinto",
-                lat: "1000",
-                log: "-1000"
-            },
-        ]);
+        get('/api/v1/events/list_waypoint').then((response) => {
+            const eventos = response.data.rows;
+
+            set_location(eventos);
+            set_event_location(eventos[0].ID);
+            console.log("AQUI LOCAL",eventos[0].ID);
+        }).catch((err) => {
+            console.log(err);
+        });
     },[]);
+
+    function createEvent() {
+        console.log(event_location);
+        
+        if (event_name == null || event_image == null || event_date == null || event_time == null || event_location == null || event_description == null) {
+            
+            console.log("ERRO");
+
+            return set_event_err(true);
+        }
+
+        else { 
+            const event_obj = {
+                event_name: event_name,
+                event_image: event_image,
+                event_date: event_date,
+                event_time: event_time,
+                waypoint_ID: parseInt(event_location),
+                description: event_description
+            }
+
+            console.log(event_obj);
+
+            post("/api/v1/events/register_event", event_obj).then((response) => {
+                console.log("Evento Registrado", response);
+                
+                set_location(null);
+                set_event_name(null);
+                set_event_image(null);
+                set_event_date(null);
+                set_event_time(null);
+                set_event_location(null);
+                set_event_description(null);
+                
+                props.popupIsOpen(false);
+
+                alert(response);
+            }).catch((err) => {
+                alert(err);
+            });
+
+        }       
+
+    }
 
     return (
         <div className="body_popup">
+            {
+                event_err && 
+                    <div className="err_message">
+                        <p>Algum campo não está preenchido!</p>
+                    </div>
+            }
+
             <div className="popup">
                 <div className="nav_popup">
                     <p>Adicionar Evento</p>
@@ -273,21 +210,52 @@ function AddEventPopup(props) {
                 </div>
 
                 <div className="field">
-                    <input className="field_name" placeholder="Nome do Evento" maxLength={50} />
-                    <input className="field_image" placeholder="Link da imagem" maxLength={1000} />
-                    <input className="field_date" type="date" />
-                    <input className="field_time" type="time" />
-                    <select className="field_location" placeholder="Local">
+                    <input className="field_name" placeholder="Nome do Evento" maxLength={50} onChange={e => set_event_name(e.target.value)} />
+                    <input className="field_image" placeholder="Link da imagem" maxLength={1000} onChange={e => set_event_image(e.target.value)} />
+                    <input className="field_date" type="date" onChange={e => set_event_date(e.target.value)} />
+                    <input className="field_time" type="time" onChange={e => set_event_time(e.target.value)} />
+                    <select className="field_location" placeholder="Local" value={this} onChange={e => set_event_location(e.target.value)} >
                         {
-                            location && location.map(n => <option>{n.local_name}</option>)
+                            location && location.map(n => <option value={n.ID}>{n.local_name}</option>)
                         }  
                     </select>
-                    <textarea className="field_description" maxLength={500} placeholder="Descrição do Evento" />
+                    <textarea className="field_description" maxLength={500} placeholder="Descrição do Evento" onChange={e => set_event_description(e.target.value)} />
                 </div>
 
                 <div className="control_btn_popup">
-                    <button className="popup_action_button_cancel" onClick={() => props.popupIsOpen(false)}>Cancelar</button>
-                    <button className="popup_action_button">Confirmar</button>
+                    <button className="popup_action_button_cancel" onClick={() => {props.popupIsOpen(false)}}>Cancelar</button>
+                    <button className="popup_action_button" onClick={() => createEvent()}>Confirmar</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function EventPopup(props) {
+    const [local_name, set_local_name] = useState();
+
+    useEffect(() => {
+        get('/api/v1/events/event_waypoint/'+props.event.waypoint_ID).then((response) => {
+            set_local_name(response.data.rows);
+        }).catch((err) => {
+            console.log(err);
+        });
+    },[])
+
+    return(
+        <div className="body_popup">
+            <div className="popup">
+                <div className="nav_popup">
+                    <p>{props.event.event_name}</p>
+                    <button onClick={() => props.popupIsOpen(false)} className="nav_btn_popup"><i class="far fa-times-circle"></i></button>
+                </div>
+
+                <div className="field">
+                    <img src={props.event.event_image} style={{width: "100%", backgroundColor:"#333"}} />
+                    <p>{props.event.event_date}</p>
+                    <p>{props.event.event_time}</p>
+                    <p>{local_name && local_name[0].local_name}</p>
+                    <p>{props.event.description}</p>
                 </div>
             </div>
         </div>

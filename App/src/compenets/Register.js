@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {View, TouchableOpacity, Text, Image, TextInput} from "react-native";
 import styles from "../assets/Stylesheet";
-import Axios from "axios";
+import {post} from '../http/maHttp';
 
 export default function Register({ navigation }) {
     const [email, setEmail] = useState();
@@ -20,7 +20,7 @@ export default function Register({ navigation }) {
                 email: email,
                 user_password: password
             }
-            Axios.post("http://10.0.0.167:3001/api/v1/user/register",obj).then((response) => {
+            post("/api/v1/user/register",obj).then((response) => {
                 console.log(response);
                 return navigation.navigate("Login");
             });

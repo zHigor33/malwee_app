@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const server = "http://10.0.0.167:3001";
+const server = "http://192.168.0.100:3001";
 
 /*
 const defineHeaders = (public) => {
