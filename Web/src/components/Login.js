@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import "../assets/css/Login.css"
-import background from "../assets/images/background.jpg";
+import "../assets/css/Login.css";
 import logo from "../assets/images/logo-transparent.png";
 import bodyBackgound from "../assets/images/body.jpg";
 import {post} from "./http/maHttp";
@@ -25,6 +24,7 @@ export default function Login() {
             localStorage.setItem("token", response.token);
             history.push('/home');
         }).catch((err) => {
+            alert(err);
             console.log(err);
         });
     }

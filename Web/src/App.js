@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
+import Waypoints from './components/Waypoints';
 
 import {isAuthenticated} from './auth.js';
 
@@ -11,6 +12,7 @@ export default function App() {
       <Switch>
         <Route path="/" exact component={Login} />
         <PrivateRoute path="/home" exact component={Home} isAuth={isAuthenticated} />
+        <PrivateRoute path="/waypoints" exact component={Waypoints} isAuth={isAuthenticated} />
       </Switch>  
     </BrowserRouter>
   );

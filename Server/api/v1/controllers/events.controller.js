@@ -25,14 +25,48 @@ exports.registerEvent = (req, res) => {
 }
 
 exports.listEvents = (req, res) => {
-    conn.query("SELECT * FROM event", (err, rows) => {
+    let date = new Date();
+    let day = String(date.getDate()).padStart(2, '0');
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let year = date.getFullYear();
+    let format_date = year+'-'+month+'-'+day;
+
+    console.log(format_date);
+
+    const query = "SELECT * FROM event WHERE event_date >= ?";
+
+    conn.query(query, [format_date], (err, rows) => {
         if(err) {
             console.error('Erro ao executar a query', err);
             res.status(500);
             return;
         }
 
-        console.log(rows);
+        // Formatando data;
+        for (let i = 0; i < rows.length; i++) {
+            let date = rows[i].event_date;
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = date.getFullYear();
+
+            let format_date = day + "/" + month + "/" + year
+
+            // console.log(format_date);
+            
+            rows[i].event_date = format_date;
+        }
+
+        // Formatando horario;
+        for (let i = 0; i < rows.length; i++) {
+            let time = rows[i].event_time.toString();
+            let format_time = time.slice(0,5);
+            
+            // console.log(format_time);
+
+            rows[i].event_time = format_time;
+        }
+
+        // console.log(rows);
 
         return res.json({rows});
     });
@@ -42,22 +76,22 @@ exports.listWaypointsPerEvents = (req, res) => {
     const ID = req.params.id
 
     if (ID) {
-        const query = "SELECT * FROM waypoint WHERE ID = ?";
+        const query = "SELECT local_name FROM waypoint WHERE ID = ?";
+
         conn.query(query, [ID], (err, rows) => {
             if (err) {
                 console.error('Erro ao executar a query', err);
                 res.status(500);
                 console.log({rows});
                 return;
-                
             }
             
-            return res.json({rows});
+            return res.json(rows);
         });
     }
 
     else {
-        listWaypoints();
+        res.json('Indefinido');
     }
 }
 

@@ -15,5 +15,8 @@ app.use('/api/v1/user', user)
 const event = require('./api/v1/routes/events')
 app.use('/api/v1/events', event)
 
+const waypoint = require('./api/v1/routes/waypoint')
+app.use('/api/v1/waypoint', waypoint)
+
 const port = process.env.PORT || 3001
 app.listen(port, () => { console.log(`Servidor rodando na porta ${port}`) })

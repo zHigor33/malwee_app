@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {post, get} from "./http/maHttp";
-import "../assets/css/Events.css";
+import "../assets/css/Waypoints.css";
 import logo from "../assets/images/logo.png";
 import moldura from "../assets/images/moldura.png";
 import "../assets/fontawesome/css/all.css";
@@ -8,39 +8,39 @@ import { useHistory } from 'react-router-dom';
 
 export default function Home(props) {
     const history = useHistory();
-    const [event_list, set_events_list] = useState();
+    const [waypoint_list, set_waypoint_list] = useState();
     const [show_register_popup, set_show_register_popup] = useState(false);
-    const [show_select_event, set_show_select_event] = useState(false);
-    const [select_event, set_select_event] = useState();
+    const [show_select_waypoint, set_show_select_waypoint] = useState(false);
+    const [select_waypoint, set_select_waypoint] = useState();
 
     useEffect(() => {
-        get('/api/v1/events/list_event').then((response) => {
+        get('/api/v1/waypoint/list_waypoint').then((response) => {
             console.log("AQUI",response);
 
-            set_events_list(response.data.rows);
+            set_waypoint_list(response.data.rows);
         }).catch((err) => {
             console.log(err);
         });
     }, []);
 
-    function showEvent(n) {
+    function showWaypoint(n) {
         console.log(n);
 
-        set_select_event(n);
-        set_show_select_event(true);
+        set_select_waypoint(n);
+        set_show_select_waypoint(true);
     }
 
     return (
         <div className="body_container">
             {
-                show_register_popup && <AddEventPopup popupIsOpen={isOpen => set_show_register_popup(isOpen)} />
+                show_register_popup && <AddWaypointPopup popupIsOpen={isOpen => set_show_register_popup(isOpen)} />
             }
 
             {
-                show_select_event && <EventPopup popupIsOpen={isOpen => set_show_select_event(isOpen)} event={select_event} />
+                show_select_waypoint && <WaypointPopup popupIsOpen={isOpen => set_show_select_waypoint(isOpen)} waypoint={select_waypoint} />
             }
 
-            <div className={show_register_popup || show_select_event ? "blur" : undefined} style={{display: "flex", flexWrap: "wrap"}}>
+            <div className={show_register_popup || show_select_waypoint ? "blur" : undefined} style={{display: "flex", flexWrap: "wrap"}}>
                 <div class="nav">
                     <text className="text_nav"><i className="fas fa-user"></i> Higor</text>
                     <text className="text_nav">PARQUE MALWEE</text>
@@ -49,8 +49,8 @@ export default function Home(props) {
                 
                 <div className="menu">
                     <div>
-                        <button className="menu_btn" onClick={() => history.push('/waypoints')}><i className="fas fa-map-marker-alt"></i> <text className="text_btn">Locais</text></button>
-                        <button className="menu_btn" style={{backgroundColor: "#666"}}><i className="fas fa-ticket-alt"></i> <text className="text_btn">Eventos</text></button>
+                        <button className="menu_btn" style={{backgroundColor: "#666"}}><i className="fas fa-map-marker-alt"></i> <text className="text_btn">Locais</text></button>
+                        <button className="menu_btn" onClick={() => history.push('/home')}><i className="fas fa-ticket-alt"></i> <text className="text_btn">Eventos</text></button>
                         <button className="menu_btn"><i className="fas fa-running"></i> <text className="text_btn">Atividades</text></button>
                         <button className="menu_btn"><i className="fas fa-archway"></i> <text className="text_btn">Museu</text></button>
                         <button className="menu_btn"><i className="fas fa-map"></i> <text className="text_btn">Mapa de Calor</text></button>
@@ -62,13 +62,13 @@ export default function Home(props) {
                 <div className="body_page">
                     <div className="banner">
                         <div className="banner_info">
-                            <h1>EVENTOS</h1>
+                            <h1>LOCAIS</h1>
                             
                             <p>
-                                Nesta área, você poderá manusear e criar cadastros de eventos para o parque,
-                                informando seus locais cadastrados, adicionando imagens referentes ao evento,
-                                horário e datas. Aqui também ficará disponível uma estimatíva de quantas 
-                                pessoas foram neste evento.
+                                Nesta área, você poderá manusear e criar locais dentro do App
+                                para o usuário navegar dentro do parque, com isso, na área de
+                                criação de eventos também ficará disponível os locais já 
+                                cadastrados para informar o local dos eventos.
                             </p>
                         </div>
                         
@@ -78,47 +78,47 @@ export default function Home(props) {
                     </div>
                     
                     <div className="container_action_buttons">
-                        <button className="action_buttons" onClick={() => {set_show_register_popup(true)}}><i className="fas fa-plus-circle"></i> Adicionar Evento</button>
+                        <button className="action_buttons" onClick={() => {set_show_register_popup(true)}}><i className="fas fa-plus-circle"></i> Adicionar Local</button>
                         {/*<button className="action_buttons"><i className="fas fa-minus-circle"></i> Excluir Evento</button>*/}
                     </div>
                     
-                    <div className="event_container">
-                        <div className="event_list_column">
-                            <div className="event_id">
+                    <div className="waypoint_container">
+                        <div className="waypoint_list_column">
+                            <div className="waypoint_id">
                                 <p>ID</p>
                             </div>
 
-                            <div className="event_name">
+                            <div className="waypoint_name">
                                 <p>Nome</p>
                             </div>
 
                             <div className="event_date">
-                                <p>Data</p>
+                                <p>Latitude</p>
                             </div>
 
                             <div className="event_time">
-                                <p>Horário</p>
+                                <p>Longitude</p>
                             </div>
                         </div>
                         
                         {
                             
-                            event_list && event_list.map(n =>
-                                <div item key={n.ID} className="event_list" onClick={() => {showEvent(n)}}>
-                                    <div className="event_id">
+                            waypoint_list && waypoint_list.map(n =>
+                                <div item key={n.ID} className="waypoint_list" onClick={() => {showWaypoint(n)}}>
+                                    <div className="waypoint_id">
                                         <p>{n.ID}</p>
                                     </div>
                         
-                                    <div className="event_name">
-                                        <p>{n.event_name}</p>
+                                    <div className="waypoint_name">
+                                        <p>{n.local_name}</p>
+                                    </div>
+
+                                    <div className="waypoint_date">
+                                        <p>{n.lat}</p>
                                     </div>
                         
-                                    <div className="event_date">
-                                        <p>{n.event_date}</p>
-                                    </div>
-                        
-                                    <div className="event_time">
-                                        <p>{n.event_time}</p>
+                                    <div className="waypoint_time">
+                                        <p>{n.log}</p>
                                     </div>
                                 </div>                       
                             )
@@ -130,7 +130,7 @@ export default function Home(props) {
     );
 }
 
-function AddEventPopup(props) {
+function AddWaypointPopup(props) {
     const [location, set_location] = useState();
     const [event_name, set_event_name] = useState();
     const [event_image, set_event_image] = useState();
@@ -238,42 +238,26 @@ function AddEventPopup(props) {
     )
 }
 
-function EventPopup(props) {
-    const [local_name, set_local_name] = useState();
-
-    useEffect(() => {
-        get('/api/v1/events/event_waypoint/'+props.event.waypoint_ID).then((response) => {
-            set_local_name(response.data[0].local_name);
-            console.log(response.data);
-        }).catch((err) => {
-            console.log(err);
-        });
-    },[])
-
+function WaypointPopup(props) {
     return(
         <div className="body_popup">
             <div className="popup">
                 <div className="nav_popup">
-                    <p>{props.event.event_name}</p>
+                    <p>{props.waypoint.local_name}</p>
                     <button onClick={() => props.popupIsOpen(false)} className="nav_btn_popup"><i class="far fa-times-circle"></i></button>
                 </div>
 
                 <div className="field">
-                    <img src={props.event.event_image} style={{width: "100%", backgroundColor:"#333"}} />
+                    <img src={props.waypoint.local_image} style={{width: "100%", backgroundColor:"#333"}} />
 
                     <div className="title_option_popup">
-                        <p>Data</p>
-                        <p>Horário</p>
+                        <p>Latitude</p>
+                        <p>Longitude</p>
                     </div>
                     
                     <div className="option_popup">
-                        <p>{props.event.event_date}</p>
-                        <p>{props.event.event_time}</p>
-                    </div>
-
-                    <p>Local: {local_name && local_name}</p>
-                    <div className="field_description">
-                        <p>{props.event.description}</p>
+                        <p>{props.waypoint.lat}</p>
+                        <p>{props.waypoint.log}</p>
                     </div>
                 </div>
             </div>
