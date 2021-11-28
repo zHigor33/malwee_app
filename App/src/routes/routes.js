@@ -2,16 +2,18 @@ import * as React from "react";
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons';
 
 import PrivateRoute from './private.route';
 import PublicRoute from './public.route';
+
 import Map from '../compenets/Map';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function StackNav() {
+
     return (
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Public" >
             <Stack.Screen 
@@ -46,38 +48,40 @@ function StackNav() {
 
 export default function Routes() {
     return (
-        <Tab.Navigator 
+        <Tab.Navigator
             tabBarOptions={{
                 style: {
-                backgroundColor: "#549245",
-                borderTopColor: "transparent",
+                    backgroundColor: "#549245",
+                    borderTopColor: "transparent",
                 },
                 activeTintColor: "#fff",
                 inactiveTintColor: "#DCDCDC",
                 tabStyle: {
-                paddingBottom: 5,
-                paddingTop: 5,
+                    paddingBottom: 5,
+                    paddingTop: 5,
                 }
             }}
         >
-            <Tab.Screen 
-                name="Início" 
-                component={StackNav} 
-                options={{
-                    tabBarIcon: ({ size, color }) => (
-                        <Entypo name="home" size={size} color={color} />
-                    )
-                }}
-            />
-            <Tab.Screen 
-                name="Mapa" 
-                component={Map} 
+            <Tab.Screen
+                name="Mapa"
+                component={Map}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Entypo name="map" size={size} color={color} />
                     )
                 }}
             />
+
+            <Tab.Screen
+                name="Início"
+                component={StackNav}
+                options={{
+                    tabBarIcon: ({ size, color }) => (
+                        <Entypo name="home" size={size} color={color} />
+                    )
+                }}
+            />
+
         </Tab.Navigator>
     )
 }

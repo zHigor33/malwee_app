@@ -2,10 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     containerOptions: {
-        left: "2.5%",
-        top: 16,
         marginBottom: 20,
-        width: "95%",
+        width: "100%",
         height: 45,
         backgroundColor: "#fff"
     },
@@ -24,9 +22,9 @@ export default StyleSheet.create({
     }, 
     bodyDescription: {
         padding: 12,
-        left: "2.5%",
-        marginTop: -5,
-        width: "95%",
+        marginTop: -22,
+        marginBottom: 12,
+        width: "100%",
         height: 'auto',
         backgroundColor: "#4a7a3e",
     },
@@ -42,17 +40,21 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     title: {
-        left: "2.5%",
-        top: 24,
-        width: "95%",
-        height: 32,
-        backgroundColor: "#549245"
+        width: "100%",
+        height: 44,
+        backgroundColor: "#579549",
+        padding: 4,
+    },
+    fontTitle: {
+        color: '#fff',
+        fontSize: 18,
+        top: 4,
+        left:12
     },
     card: {
-        marginTop: 16,
-        left: "2.5%",
-        width: "95%",
-        height: "40%",
+        marginBottom: 16,
+        width: "100%",
+        height: 230,
         backgroundColor: "#333",
         
     },

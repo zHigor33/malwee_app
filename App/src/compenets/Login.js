@@ -49,7 +49,7 @@ export default function Login({ navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.flexContainer}>
+                {/* <View style={styles.flexContainer}>
                     <View style={styles.bar} />
                     <Text style={styles.textApp16}>Ou entre com</Text>
                     <View style={styles.bar} />
@@ -63,7 +63,7 @@ export default function Login({ navigation }) {
                     <TouchableOpacity style={styles.standardButton_red} onPress={() => alert("Desabilitado no momento!")} underlayColor="#333" activeOpacity={1} >
                         <Text style={styles.textButton}>Google</Text>    
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </View>
         </View>
     );

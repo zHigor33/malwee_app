@@ -5,42 +5,19 @@ import {get} from '../http/maHttp';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function User() {
-    const [events, setEvents] = useState();
+    const [waypoint, set_waypoint] = useState();
     const [openDescription, setOpenDescription] = useState('false');
-    const [event_new, set_event_new] = useState();
-
-    useEffect(() => {
-        get('/api/v1/events/list_event').then((response) => {
-            const eventos = response.data.rows;
-
-            setEvents(eventos);
-            console.log(eventos);
-        }).catch((err) => {
-            console.log(err);
-        });
-    },[]);
 
     useEffect(() => {
         get('/api/v1/events/list_waypoint').then((response) => {
             const locais = response.data.rows;
-            const new_events = events;
 
-            for (let i = 0; i < locais.length; i++) {
-                for (let j = 0; j < new_events.length; j++) {
-                    if (locais[i].ID == new_events[j].waypoint_ID) {
-                        new_events[j].waypoint_ID = locais[i].local_name;
-                    }
-                }
-            }
-
-            console.log(new_events);
-
-            set_event_new(new_events);
-
+            set_waypoint(locais);
+            console.log(locais);
         }).catch((err) => {
             console.log(err);
         });
-    },[events]);
+    },[]);
 
     function toggleDescription() {
         if(openDescription == 'false') {
@@ -54,14 +31,13 @@ export default function User() {
         <View>
             <ScrollView >
                 {
-                    event_new && event_new.map(n =>
+                    waypoint && waypoint.map(n =>
                         <View key={n.ID}>
                             <View style={styles.title} >
-                                <Text style={styles.fontTitle}>{n.event_name}</Text>
-                                
+                                <Text style={styles.fontTitle}>{n.local_name}</Text>
                             </View>
                             <Image 
-                                source={{uri: n.event_image && n.event_image}} 
+                                source={{uri: n.local_image && n.local_image}} 
                                 style={{width: "100%", height: 350, backgroundColor: '#333'}}
                             />
                             <View style={styles.containerOptions}>
@@ -73,10 +49,8 @@ export default function User() {
                             {
                                 openDescription == 'true' &&
                                 <View style={styles.bodyDescription}>
-                                    <Text style={{color: "#fff", fontSize: 16}}>Local: {n.waypoint_ID}</Text>
-                                    <Text style={{color: "#fff", fontSize: 16}}>Data: {n.event_date}</Text>
-                                    <Text style={{color: "#fff", fontSize: 16}}>Horario: {n.event_time}</Text>
-                                    <Text style={{color: "#fff", fontSize: 16}}>Sobre: {n.description}</Text>
+                                    <Text style={{color: "#fff", fontSize: 16}}>Latitude: {n.lat}</Text>
+                                    <Text style={{color: "#fff", fontSize: 16}}>Longitude: {n.log}</Text>
                                 </View> ||
                                 null
                             }
