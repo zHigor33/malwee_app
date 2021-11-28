@@ -164,33 +164,33 @@
 	cursor: pointer;
 }
 
-.waypoint_container {
+.activity_container {
 	width: 100%;
 	height: auto;
 }
 
-.waypoint_list_column {
+.activity_list_column {
     background-color: RGB(245, 245, 245);
     width: 100%;
     height: 50px;
     display: flex;
 }
 
-.waypoint_list {
+.activity_list {
     width: 100%;
     height: 50px;
     display: flex;
 }
 
-.waypoint_list:nth-child(odd) {
+.activity_list:nth-child(odd) {
     background-color: RGB(245, 245, 245);
 }
 
-.waypoint_list:nth-child(even) {
+.activity_list:nth-child(even) {
     background-color: #fff;
 }
 
-.waypoint_id {
+.activity_id {
     width: 32px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -200,7 +200,7 @@
     font-weight: bolder;
 }
 
-.waypoint_name {
+.activity_name {
     width: 100%;
     margin-top: 16px;
     margin-left: 44px;
@@ -209,7 +209,7 @@
     font-weight: bolder;
 }
 
-.waypoint_date {
+.activity_date {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     font-weight: bolder;
@@ -217,7 +217,7 @@
     width: 300px;
 }
 
-.waypoint_time {
+.activity_time {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     font-weight: bolder;
@@ -225,7 +225,7 @@
     width: 300px;
 }
 
-.waypoint_list:hover {
+.activity_list:hover {
     color: #1E90FF;
     cursor: pointer;
     text-decoration: underline;
@@ -308,8 +308,8 @@
 	margin-bottom: 12px;
 }
 
-.field_title {
-	width: calc(100% - 6px - 4px);
+.field_title_name {
+	width: calc(70% - 6px - 4px);
 	height: 32px;
 	border: 1px solid #333;
 	border-radius: 4px;
@@ -358,9 +358,9 @@
 	margin-left: 9px;
 }
 
-.field_location {
-	width: calc(33% - 6px - 4px);
-	height: 32px;
+.field_location_activity {
+	width: calc(30% - 6px - 4px);
+	height: 34px;
 	border: 1px solid #333;
 	border-radius: 4px;
 	padding-left: 6px;

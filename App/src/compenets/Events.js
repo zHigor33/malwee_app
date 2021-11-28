@@ -34,12 +34,12 @@ export default function User() {
                     return (
                         <View>
                             <View style={styles.title}>
-                                <Text style={{textAlign: "center", fontSize: 16, top: 4, color: "#fff"}}>{item.title}</Text>
+                                <Text style={{textAlign: "center", fontSize: 16, top: 4, color: "#fff"}}>{item.event_name}</Text>
                             </View>
 
                             <View style={styles.containerImage}>
                                 <Image 
-                                    source={{uri: item.image}} 
+                                    source={{uri: item.event_image}} 
                                     style={{width: "100%", height: 350}}
                                 />
                             </View>

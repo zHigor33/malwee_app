@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "../assets/css/Login.css";
 import logo from "../assets/images/logo-transparent.png";
-import bodyBackgound from "../assets/images/body.jpg";
 import {post} from "./http/maHttp";
 import { useHistory } from 'react-router-dom';
 
@@ -21,8 +20,15 @@ export default function Login() {
         console.log("Entrou na função")
 
         post("/api/v1/user/loginWeb", obj).then((response) => {
-            localStorage.setItem("token", response.token);
-            history.push('/home');
+            let user_name = response.user.user_name;
+            let user_id = response.user.ID;
+            let token = response.token;
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("user_name", user_name);
+            localStorage.setItem("user_id", user_id);
+
+            history.push('/waypoints');
         }).catch((err) => {
             alert(err);
             console.log(err);
@@ -30,14 +36,11 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <img src={bodyBackgound} alt="background" className="bodyBackground" />
+        <div className="bodyPage">
             <div className="bodyLogin">
-                <img src={logo} alt="logo" className="logo" />
-                <p className="textField">Login</p>
-                <input type="text" name="login" label="Login" className="inputShields" onChange={(e) => setEmail(e.target.value)} ></input><br/>
-                <p className="textField">Senha</p>
-                <input type="password" label="Senha" className="inputShields" onChange={(e) => setPass(e.target.value)} ></input><br/>
+                <img src={logo} className="logo" />
+                <input type="text" name="login" placeholder="E-mail" className="inputShields" onChange={(e) => setEmail(e.target.value)} ></input><br/>
+                <input type="password" placeholder="Senha" className="inputShields" onChange={(e) => setPass(e.target.value)} ></input><br/>
                 <button className="btnLogin" onClick={login}>Entrar</button>          
             </div>
         </div>

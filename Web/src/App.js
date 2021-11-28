@@ -1,8 +1,11 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import Login from './components/Login';
-import Home from './components/Home';
 import Waypoints from './components/Waypoints';
+import Event from './components/Event';
+import Activity from './components/Activity';
+import Museum from './components/Museum';
+import Heatmap from './components/Heatmap';
 
 import {isAuthenticated} from './auth.js';
 
@@ -11,8 +14,11 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Login} />
-        <PrivateRoute path="/home" exact component={Home} isAuth={isAuthenticated} />
         <PrivateRoute path="/waypoints" exact component={Waypoints} isAuth={isAuthenticated} />
+        <PrivateRoute path="/events" exact component={Event} isAuth={isAuthenticated} />
+        <PrivateRoute path="/activity" exact component={Activity} isAuth={isAuthenticated} />
+        <PrivateRoute path="/museum" exact component={Museum} isAuth={isAuthenticated} />
+        <PrivateRoute path="/heatmap" exact component={Heatmap} isAuth={isAuthenticated} />
       </Switch>  
     </BrowserRouter>
   );

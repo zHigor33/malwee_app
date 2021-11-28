@@ -8,12 +8,18 @@ import { useHistory } from 'react-router-dom';
 
 export default function Home(props) {
     const history = useHistory();
+    const [user, set_user] = useState();
     const [event_list, set_events_list] = useState();
     const [show_register_popup, set_show_register_popup] = useState(false);
     const [show_select_event, set_show_select_event] = useState(false);
     const [select_event, set_select_event] = useState();
 
     useEffect(() => {
+        let user = localStorage.getItem("user_name");
+        set_user(user);
+
+        console.log("usuario",user);
+
         get('/api/v1/events/list_event').then((response) => {
             console.log("AQUI",response);
 
@@ -30,6 +36,11 @@ export default function Home(props) {
         set_show_select_event(true);
     }
 
+    function logout() {
+        localStorage.clear();
+        history.push('/');
+    }
+
     return (
         <div className="body_container">
             {
@@ -42,18 +53,18 @@ export default function Home(props) {
 
             <div className={show_register_popup || show_select_event ? "blur" : undefined} style={{display: "flex", flexWrap: "wrap"}}>
                 <div class="nav">
-                    <text className="text_nav"><i className="fas fa-user"></i> Higor</text>
+                    <text className="text_nav"><i className="fas fa-user"></i> {user ? user : "Usuário"}</text>
                     <text className="text_nav">PARQUE MALWEE</text>
-                    <button className="nav_btn"><text className="text_nav_logout"><i className="fas fa-sign-out-alt"></i> SAIR</text></button>
+                    <button className="nav_btn" onClick={() => logout()}><text className="text_nav_logout"><i className="fas fa-sign-out-alt"></i> SAIR</text></button>
                 </div>
                 
                 <div className="menu">
                     <div>
                         <button className="menu_btn" onClick={() => history.push('/waypoints')}><i className="fas fa-map-marker-alt"></i> <text className="text_btn">Locais</text></button>
                         <button className="menu_btn" style={{backgroundColor: "#666"}}><i className="fas fa-ticket-alt"></i> <text className="text_btn">Eventos</text></button>
-                        <button className="menu_btn"><i className="fas fa-running"></i> <text className="text_btn">Atividades</text></button>
-                        <button className="menu_btn"><i className="fas fa-archway"></i> <text className="text_btn">Museu</text></button>
-                        <button className="menu_btn"><i className="fas fa-map"></i> <text className="text_btn">Mapa de Calor</text></button>
+                        <button className="menu_btn" onClick={() => history.push('/activity')}><i className="fas fa-running"></i> <text className="text_btn">Atividades</text></button>
+                        <button className="menu_btn" onClick={() => history.push('/museum')}><i className="fas fa-archway"></i> <text className="text_btn">Museu</text></button>
+                        <button className="menu_btn" onClick={() => history.push('/heatmap')}><i className="fas fa-map"></i> <text className="text_btn">Mapa de Calor</text></button>
                     </div>
                     
                     <img src={logo} className="menu_img" />
