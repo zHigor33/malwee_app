@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { post, get } from "./http/maHttp";
 import "../assets/css/Waypoints.css";
 import logo from "../assets/images/logo.png";
-import moldura from "../assets/images/moldura.png";
+import moldura from "../assets/images/moldura-locais.png";
 import "../assets/fontawesome/css/all.css";
 import { useHistory } from 'react-router-dom';
 
@@ -233,7 +233,8 @@ function AddWaypointPopup(props) {
                     <p className="field_coord" placeholder="Latitude" >Latitude:   {latitude & String(latitude)}</p>
                     <p className="field_coord" placeholder="Longitude" >Longitude: {longitude & String(longitude)}</p>
 
-                    <div ref={mapContainer} className="map-container" />
+                    <div ref={mapContainer} className="map-container">
+                    </div>
 
                     <input className="field_image" placeholder="Link da imagem" maxLength={1000} onChange={e => set_waypoint_image(e.target.value)} />
                 </div>

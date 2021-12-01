@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {post, get} from "./http/maHttp";
 import "../assets/css/Activity.css";
 import logo from "../assets/images/logo.png";
-import moldura from "../assets/images/moldura.png";
+import moldura from "../assets/images/moldura-atividades.png";
 import "../assets/fontawesome/css/all.css";
 import { useHistory } from 'react-router-dom';
 
